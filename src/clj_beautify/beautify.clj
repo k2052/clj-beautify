@@ -8,7 +8,7 @@
    "edn"     simple-dispatch})
 
 (def default-settings {:right-margin        *print-right-margin*
-                       :miser-width         *print-miser-width*  
+                       :miser-width         *print-miser-width*
                        :base                *print-base*
                        :length              *print-length*
                        :level               *print-level*
@@ -83,7 +83,7 @@
 (defn format-clj
   "Clojure formatting function that takes a unformatted-input and format type
   and transforms it into a formatted output using clojure.pprint/write."
-  [input format-type settings]
+  [input format-type & [settings]]
   (let [in-lits  (str-to-literal input format-type)
-       formatted (map #(format-literal % format-type settings) in-lits)]
+       formatted (map #(format-literal % format-type (or settings default-settings)) in-lits)]
         (literal-to-str formatted)))
